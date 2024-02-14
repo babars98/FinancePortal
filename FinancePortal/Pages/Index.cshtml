@@ -1,0 +1,16 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+<div class="container-fluid">
+    <form action="invoicedetail" method="get">
+        <div class="mb-3">
+            <label for="reference" class="form-label">Invoice Reference:</label>
+            <input type="text" class="form-control w-25" id="invoicereference" name="invoicereference" aria-describedby="referenceHelp"
+                   onkeyup="this.value = this.value.toUpperCase();">
+            <div id="referenceHelp" class="form-text">Enter your unique invoice reference number.</div>
+        </div>
+        <button type="submit" class="btn btn-primary">Find Invoice</button>
+    </form>
+</div>
