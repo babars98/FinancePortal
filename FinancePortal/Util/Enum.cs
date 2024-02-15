@@ -8,7 +8,7 @@
 
     public enum InvoicePaymentStatus
     {
-        NotPaid = 0,
+        OutStanding = 0,
         Paid = 1
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FinancePortal.Util;
+using System.ComponentModel.DataAnnotations;
 
 namespace FinancePortal.Models
 {
@@ -8,9 +9,10 @@ namespace FinancePortal.Models
         public int Id { get; set; }
         public string InvoiceId { get; set; }
         public string StudentId { get; set; }
-        public short InvoiceType { get; set; }
+        public InvoiceType InvoiceType { get; set; }
         public double Fee { get; set; }
-        public bool IsPaid { get; set; }
-        public DateTime PaymentDate { get; set; }
+        public DateTime? DueDate { get; set; }
+        public InvoicePaymentStatus IsPaid { get; set; }
+        public DateTime? PaymentDate { get; set; }
     }
 }

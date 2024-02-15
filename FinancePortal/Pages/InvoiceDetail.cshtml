@@ -1,0 +1,72 @@
+﻿@page
+@model FinancePortal.Pages.InvoiceDetailModel
+@using FinancePortal.Models
+@{
+    ViewData["Title"] = "Invoice Detail";
+    var invoice = (Invoice)ViewData["invoice"];
+}
+
+@if(invoice == null)
+{
+    <div class="text-center">
+        <h5>No invoice found.</h5>
+    </div>
+}
+else
+{
+    <h3>Invoice</h3>
+    <table class="table">
+        <tbody class="col-4">
+            <tr>
+                <td>Reference:</td>
+                <td>@invoice.InvoiceId</td>
+            </tr>
+            <tr>
+                <td>Student ID</td>
+                <td>@invoice.StudentId</td>
+            </tr>
+            <tr>
+                <td>Amount</td>
+                <td>£@invoice.Fee</td>
+            </tr>
+            <tr>
+                <td>Due Date</td>
+                <td>@invoice.DueDate</td>
+            </tr>
+            <tr>
+                <td>Type</td>
+                <td>@invoice.InvoiceType</td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td> @invoice.IsPaid</td>
+            </tr>
+        </tbody>
+        
+    </table>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="btn-group">
+                <div class="col-xs-6">
+                    <a class="btn btn-secondary btn-block" href="/Index" role="button">
+                        Find
+                        Another Invoice
+                    </a>
+                </div>
+                @if (invoice.IsPaid == Util.InvoicePaymentStatus.OutStanding)
+                {
+                    <div class="col-xs-6">
+                        <form method="post">
+                            <input type="hidden" id="invoiceId" name="invoiceId" value="@invoice.InvoiceId" />
+                            <button class="btn btn-primary btn-block" type="submit" name="pay" value="submit">
+                                Pay Invoice
+                            </button>
+                        </form>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+
+}
