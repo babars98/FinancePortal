@@ -1,3 +1,4 @@
+using FinancePortal.API;
 using FinancePortal.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -32,5 +33,7 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+app.MapAPIEndPoint();
 
 app.Run();

@@ -1,12 +1,13 @@
 ﻿namespace FinancePortal.Util
 {
-    public class Utility
+    public static class Utility
     {
-        private static string IDPrefix = "INC";
-
-        public static string GenerateInvoiceId(int counter)
+        private const string IDPrefix = "INC";
+        private const int number = 3256;
+        public static string GenerateInvoiceId(int count)
         {
-            string id = $"{IDPrefix}{counter:D4}";
+            var newNumber = number + count;
+            string id = $"{IDPrefix}{newNumber}";
             return id;
         }
     }
