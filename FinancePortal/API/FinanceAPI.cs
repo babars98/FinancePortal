@@ -17,13 +17,8 @@ namespace FinancePortal.API
         /// <param name="app"></param>
         public static void MapAPIEndPoint(this WebApplication app)
         {
-
-            var scope = app.Services.CreateScope();
-            var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            context.Database.EnsureCreatedAsync();
-
             //API end point to create user account 
-            app.MapPost("/api/CreateAccount", ([FromBody] Student student) =>
+            app.MapPost("/api/CreateAccount", ([FromBody] Student student, ApplicationDbContext context) =>
             {
                 var user = context.Account.FirstOrDefault(c => c.StudentId == student.StudentId);
 
@@ -46,7 +41,7 @@ namespace FinancePortal.API
 
 
             //Create invoice API
-            app.MapPost("/api/CreateInvoice", (Invoice invoice) =>
+            app.MapPost("/api/CreateInvoice", (Invoice invoice, ApplicationDbContext context) =>
             {
                 var InvoiceCount = context.Invoice.Count();
                 var newInvoice = new Invoice()
@@ -66,16 +61,15 @@ namespace FinancePortal.API
             });
 
             //Get all studnet Pending Invoices
-            app.MapGet("/api/GetStudnetInvoices", (string studentId) =>
+            app.MapGet("/api/GetStudentInvoices", (string studentId, ApplicationDbContext context) =>
             {
-
                 var invoices = context.Invoice.Where(c => c.StudentId == studentId).ToList();
 
                 return Results.Ok(invoices);
             });
 
             //Check if a studnet has any pending invoice or not
-            app.MapGet("/api/CheckPendingInvoice", (string studentId) =>
+            app.MapGet("/api/CheckPendingInvoice", (string studentId, ApplicationDbContext context) =>
             {
                 var invoices = context.Invoice.Where(c => c.StudentId == studentId && c.IsPaid == InvoicePaymentStatus.OutStanding).ToList();
 
@@ -88,7 +82,7 @@ namespace FinancePortal.API
             });
 
             //Get Invoice by InvoiceId
-            app.MapGet("/api/GetInvoice", (string invoiceId) =>
+            app.MapGet("/api/GetInvoice", (string invoiceId, ApplicationDbContext context) =>
             {
                 var invoice = context.Invoice.FirstOrDefault(c => c.InvoiceId == invoiceId);
 
@@ -101,7 +95,7 @@ namespace FinancePortal.API
 
             //Pay Invoice
 
-            app.MapPut("/api/PayInvoice", (string invoiceId) => 
+            app.MapPut("/api/PayInvoice", (string invoiceId, ApplicationDbContext context) => 
             {
                 var invoice = context.Invoice.FirstOrDefault(c => c.InvoiceId == invoiceId);
 
