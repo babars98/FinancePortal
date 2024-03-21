@@ -16,7 +16,7 @@ namespace FinancePortal.Data
         }
 
         public DbSet<Account> Account { get; set; }
-        public DbSet<Invoice> Invoice { get; set; }
+        public virtual DbSet<Invoice> Invoice { get; set; }
 
     }
 }

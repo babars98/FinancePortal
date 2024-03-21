@@ -44,3 +44,4 @@ app.UseSwaggerUI();
 app.MapAPIEndPoint();
 
 app.Run();
+public partial class Program { }
